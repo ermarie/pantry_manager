@@ -27,6 +27,8 @@ ActiveRecord::Schema.define(version: 20190612154629) do
     t.string  "brand"
     t.string  "variety"
     t.string  "flavor"
+    t.decimal "quantity"
+    t.string  "quantity_type"
     t.integer "category_id"
   end
 

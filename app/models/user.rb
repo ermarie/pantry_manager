@@ -3,6 +3,6 @@ class User < ActiveRecord::Base
   validates :username, uniqueness: true
   belongs_to :pantry
   
-  # include Slugify
-  # extend Slugify
+  include Slugify
+
 end
