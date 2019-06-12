@@ -5,7 +5,6 @@ class PantryController < ApplicationController
       @user = User.find_by(id: current_user.id)
       @pantry = Pantry.find_by(user_id: @user.id)
       if @pantry != nil
-        binding.pry
         erb :'pantry/show'
       else
         redirect '/pantry/new'

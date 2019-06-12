@@ -3,18 +3,17 @@
 <h3><a href="/items/new">Add New Item</a></h3>
 
 <% @pantry.categories.each do |category| %>
-  <% binding.pry %>
+  <h2><a href="/category/<%= category.id %>"><%= category.name %></a></h2>
   <% category.items.each do |item| %>
-  <% binding.pry %>
-    <p><%= item.quantity %>, <%= item.quantity_type %> - <%= item.name %>
-    <% if item.brand != nil %>
-      , <% item.brand %>
+    <p><a href="/items/<%= item.id %>"><%= item.quantity %>, <%= item.quantity_type %> - <%= item.name %>
+    <% if item.brand != "" %>
+    , <%= item.brand %>
     <% end %>
-    <% if item.variety != nil %>
-      , <% item.variety %>
+    <% if item.variety != "" %>
+    , <%= item.variety %>
     <% end %>
-    <% if item.flavor != nil %>
-      , <% item.flavor %>
-    <% end %></p>
+    <% if item.flavor != "" %>
+    , <%= item.flavor %>
+    <% end %></a></p>
   <% end %>
 <% end %>

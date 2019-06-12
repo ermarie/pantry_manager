@@ -1,0 +1,14 @@
+<h2><%= @category.name %></a></h2>
+  <% @category.items.each do |item| %>
+    <p><a href="/items/<%= item.id %>"><%= item.quantity %>, <%= item.quantity_type %> - <%= item.name %>
+    <% binding.pry %>
+    <% if item.brand != "" %>
+    , <%= item.brand %>
+    <% end %>
+    <% if item.variety != "" %>
+    , <%= item.variety %>
+    <% end %>
+    <% if item.flavor != "" %>
+    , <%= item.flavor %>
+    <% end %></a></p>
+  <% end %>

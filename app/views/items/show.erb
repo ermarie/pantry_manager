@@ -1,6 +1,14 @@
-<h3><%= @item.name %></h3>
-<h5><%= @item.quantity %>, <%= @item.quantity_type %></h5>
-<h5><%= @item.brand %>, <%= @item.variety %>, <%= @item.flavor %></h5>
+<h1><%= @item.name %></h1>
+<h3><%= @item.quantity %>, <%= @item.quantity_type %></h3>
+<p><% if @item.brand != "" %>
+    - <%= @item.brand %>
+    <% end %><br>
+    <% if @item.variety != "" %>
+    - <%= @item.variety %>
+    <% end %><br>
+    <% if @item.flavor != "" %>
+    - <%= @item.flavor %>
+    <% end %></p>
 
   <a href="/tweets/<%= @item.id %>/edit">Edit Item</a>
 
