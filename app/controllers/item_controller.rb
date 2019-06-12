@@ -10,12 +10,10 @@ class ItemController < ApplicationController
   end 
   
   post '/items' do
-    binding.pry
     if logged_in?
       if params["name"] == ""
         redirect '/items/new'
       else
-        binding.pry
         if params["category_name"] != nil && params["category_id"] != nil 
           redirect '/items/new'
         elsif params["category_name"] != nil 
