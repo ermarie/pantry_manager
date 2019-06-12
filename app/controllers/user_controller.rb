@@ -17,6 +17,14 @@ class UserController < ApplicationController
       #redirect '/pantry'
     end
   end
+  
+  get '/login' do
+    if logged_in?
+      #redirect '/pantry'
+    else
+      erb :'users/login'
+    end
+  end
 
   
 end
