@@ -3,32 +3,37 @@
 
   <form action='/items' method="post">
     Name:
-    <input type="text" name="name"><br>
+    <input type="text" name="name" placeholder="Name"><br>
     Brand:
-    <input type="text" name="brand"><br>
+    <input type="text" name="brand" placeholder="Brand"><br>
     Variety:
-    <input type="text" name="variety"><br>
+    <input type="text" name="variety" placeholder="Variety"><br>
     Flavor:
-    <input type="text" name="flavor"><br>
+    <input type="text" name="flavor" placeholder="Flavor"><br>
+    <br>
 
     <label>Choose an existing category:</label>
 
   <br>
-
-  <% @categories.each do |category| %>
-    <input type="checkbox" name="item[category_id][]" id="<%= category.id %>" value="<%= category.id %>"><%= category.name %></input>
+  <% if @categories != nil %>
+    <% @categories.each do |category| %>
+      <input type="checkbox" name="item[category_id][]" id="<%= category.id %>" value="<%= category.id %>"><%= category.name %></input>
+    <% end %>
+  <% else %>
+    <p>No categories currently exist.</p>
   <% end %>
-
   <br>
 
-    <label>and/or, create a new category:</label>
+    <label>or, create a new category:</label>
     <br>
     <label>Category Name:</label>
       <input  type="text" name="category[name]"></input>
     <br>
   <input type="submit" value="Create Category"><br>
+  <br>
+  <br>
   
-    Create Your Item:
+    <b>Create Your Item:</b>
 
     <input type="submit" name="submit" id="submit">
 

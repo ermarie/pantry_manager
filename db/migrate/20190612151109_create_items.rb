@@ -5,6 +5,8 @@ class CreateItems < ActiveRecord::Migration
       t.string :brand
       t.string :variety
       t.string :flavor
+      t.numeric :quantity
+      t.string :quantity_type
       t.integer :category_id
     end
   end
