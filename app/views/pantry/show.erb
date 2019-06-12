@@ -1,3 +1,16 @@
-<h1>This is your pantry.</h1>
+<h1>Welcome, <%= @user.username %> This is your pantry, <%= @pantry.name %>.</h1>
 
 <h3><a href="/items/new">Add New Item</a></h3>
+
+<% @pantry.categories.each do |category| %>
+  <% category.items.each do |item| %>
+    <p><%= item.quantity %>, <%= item.quantity_type %> - <%= item.name %>
+    <% if item.brand != nil %>
+      , <% item.brand %>
+    <% end %>
+    <% if item.variety != nil %>
+      , <% item.variety %>
+    <% end %>
+    <% if item.flavor != nil %>
+      , <% item.flavor %>
+    <% end %></p>
