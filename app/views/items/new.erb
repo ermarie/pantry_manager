@@ -10,6 +10,24 @@
     <input type="text" name="variety"><br>
     Flavor:
     <input type="text" name="flavor"><br>
+
+    <label>Choose an existing category:</label>
+
+  <br>
+
+  <% @categories.each do |category| %>
+    <input type="checkbox" name="item[category_id][]" id="<%= category.id %>" value="<%= category.id %>"><%= category.name %></input>
+  <% end %>
+
+  <br>
+
+    <label>and/or, create a new category:</label>
+    <br>
+    <label>Category Name:</label>
+      <input  type="text" name="category[name]"></input>
+    <br>
+  <input type="submit" value="Create Category"><br>
+  
     Create Your Item:
 
     <input type="submit" name="submit" id="submit">

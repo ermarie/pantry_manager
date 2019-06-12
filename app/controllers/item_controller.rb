@@ -2,6 +2,7 @@ class ItemController < ApplicationController
   
   get '/items/new' do
     if logged_in?
+      @caetgories = Category.all
       erb :'items/new'
     else
       redirect '/login'
