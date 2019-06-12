@@ -3,7 +3,9 @@
 <h3><a href="/items/new">Add New Item</a></h3>
 
 <% @pantry.categories.each do |category| %>
+  <% binding.pry %>
   <% category.items.each do |item| %>
+  <% binding.pry %>
     <p><%= item.quantity %>, <%= item.quantity_type %> - <%= item.name %>
     <% if item.brand != nil %>
       , <% item.brand %>
@@ -14,3 +16,5 @@
     <% if item.flavor != nil %>
       , <% item.flavor %>
     <% end %></p>
+  <% end %>
+<% end %>

@@ -4,7 +4,6 @@ class PantryController < ApplicationController
     if logged_in?
       @user = User.find_by(id: current_user.id)
       @pantry = Pantry.find_by(user_id: @user.id)
-      binding.pry
       if @pantry != nil
         binding.pry
         erb :'pantry/show'

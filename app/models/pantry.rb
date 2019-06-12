@@ -4,6 +4,4 @@ class Pantry < ActiveRecord::Base
   has_many :items, through: :categories
   belongs_to :user
   
-  # include Slugify
-  # extend Slugify
 end
