@@ -3,6 +3,6 @@ class Category < ActiveRecord::Base
   has_many :categories_pantry
   has_many :pantries, through: :categories_pantry
   
-  include Slugifiable
-  extend Slugifiable
+  # include Slugify
+  # extend Slugify
 end

@@ -1,6 +1,6 @@
 class Item < ActiveRecord::Base
   belongs_to :category
   
-  include Slugifiable
-  extend Slugifiable
+  # include Slugify
+  # extend Slugify
 end

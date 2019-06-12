@@ -6,7 +6,14 @@
     <div class="content">
       <p>Welcome to the Sinatra Template! If you're seeing this page, then everything is working
       as expected. To get started, delete this file (<code>app/views/welcome.erb)</code> and begin adding
-      your own actions to <code>application_controller.rb</code>. For more information, see the <a href="https://github.com/thebrianemory/corneal">README</a>.<a href="/signup">Sign Up</a><a href="/login">Log In</a></p>
+      your own actions to <code>application_controller.rb</code>. For more information, see the <a href="https://github.com/thebrianemory/corneal">README</a>.</p>
+      <p>
+        <% if logged_in? %>
+          Welcome, <%= current_user.username %><a href="/logout">Log Out</a>
+        <% else %>
+          <a href="/signup">Sign Up</a>   <a href="/login">Log In</a>
+        <% end %>
+      </p>
     </div>
 
     <div class="sidebar">
