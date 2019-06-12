@@ -26,4 +26,14 @@ class PantryController < ApplicationController
     end
   end
   
+  post '/pantry' do
+    if params["name"] == ""
+      redirect '/pantry/new'
+    else
+      user = User.find_by(id: current_user.id)
+      pantry = Pantry.create(name: params["name"], user_id: user.id)
+      binding.pry
+    end
+  end
+  
 end
