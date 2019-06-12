@@ -21,7 +21,7 @@
   <br>
   <% if !@categories.empty? %>
     <% @categories.each do |category| %>
-      <input type="checkbox" name="item[category_id][]" id="<%= category.id %>" value="<%= category.id %>"><%= category.name %></input>
+      <input type="checkbox" name="category_id" id="<%= category.id %>" value="<%= category.id %>"><%= category.name %></input>
     <% end %>
   <% else %>
     <p>No categories currently exist.</p>
@@ -31,9 +31,7 @@
     <label><strong>Or, create a new category:</strong></label>
     <br>
     <label>Category Name:</label>
-      <input  type="text" name="category[name]"></input>
-    <br>
-  <input type="submit" value="Create Category"><br>
+      <input  type="text" name="category_name"></input>
   <br>
   <br>
   
