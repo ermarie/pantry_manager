@@ -1,4 +1,5 @@
 class Category < ActiveRecord::Base
   has_many :items
-  belongs_to :pantry
+  has_many :categories_pantries
+  has_many :pantries, through: :categories_pantries
 end

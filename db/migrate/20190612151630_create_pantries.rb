@@ -1,4 +1,4 @@
-class Pantries < ActiveRecord::Migration
+class CreatePantries < ActiveRecord::Migration
   def up
     create_table :pantries do |t|
       t.string :name
