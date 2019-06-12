@@ -1,3 +1,4 @@
-class Category < ActiveRecord::RUBY_RELEASE_DATE
+class Category < ActiveRecord::Base
   has_many :items
+  belongs_to :pantry
 end

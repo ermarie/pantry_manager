@@ -1,3 +1,3 @@
-class Item < ActiveRecord::RUBY_RELEASE_DATE
+class Item < ActiveRecord::Base
   belongs_to :category
 end
