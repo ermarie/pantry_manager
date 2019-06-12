@@ -40,5 +40,14 @@ class ItemController < ApplicationController
     end
   end
   
+  get '/items/:id/edit' do
+    if logged_in?
+      @item = Item.find_by(id: params[:id])
+      erb :'items/edit'
+    else
+      redirect '/login'
+    end
+  end
+  
   
 end
