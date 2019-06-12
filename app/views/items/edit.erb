@@ -1,0 +1,45 @@
+<h3><%= @item.name %></h3>
+<h5><%= @item.quantity %>, <%= @item.quantity_type %></h5>
+<h5><%= @item.brand %>, <%= @item.variety %>, <%= @item.flavor %></h5>
+
+
+  <form action='/items/<%= @item.id %>' method="post">
+    <input id="hidden" type="hidden" name="_method" value="patch">
+    Name:
+    <input type="text" name="name" placeholder="yogurt, peppers, etc."><br>
+    Brand:
+    <input type="text" name="brand" placeholder="Leave blank if no brand"><br>
+    Variety:
+    <input type="text" name="variety" placeholder="Greek, unsweetened, yellow, etc."><br>
+    Flavor:
+    <input type="text" name="flavor" placeholder="plain, chocolate, etc."><br>
+    Quantity:
+    <input type="text" name="quantity" placeholder="Decimals Only, No Fractions"><br>
+    Quantity Type:
+    <input type="text" name="quantity_type" placeholder="each, lbs, cups, etc."><br>
+    <br>
+
+    <label><strong>Choose an existing category:</strong></label>
+
+  <br>
+  <% if !@categories.empty? %>
+    <% @categories.each do |category| %>
+      <input type="checkbox" name="category_id" id="<%= category.id %>" value="<%= category.id %>"><%= category.name %></input>
+    <% end %>
+  <% else %>
+    <p>No categories currently exist.</p>
+  <% end %>
+  <br>
+
+    <label><strong>Or, create a new category:</strong></label>
+    <br>
+    <label>Category Name:</label>
+      <input  type="text" name="category_name"></input>
+  <br>
+  <br>
+  
+    <b>Edit Your Item:</b>
+
+    <input type="submit" name="submit" id="submit">
+
+  </form>

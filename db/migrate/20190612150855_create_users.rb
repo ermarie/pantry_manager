@@ -4,7 +4,6 @@ class CreateUsers < ActiveRecord::Migration
       t.string :username
       t.string :password_digest
       t.string :email
-      t.integer :pantry_id
     end
   end
   
