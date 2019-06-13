@@ -10,7 +10,7 @@
     - <%= @item.flavor %>
     <% end %></p>
 
-  <a href="/tweets/<%= @item.id %>/edit">Edit Item</a>
+  <a href="/items/<%= @item.id %>/edit">Edit Item</a>
 
   <form method="post" action="/items/<%= @item.id %>">
   <input id="hidden" type="hidden" name="_method" value="delete">

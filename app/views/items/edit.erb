@@ -1,8 +1,9 @@
-<h3><%= @item.name %></h3>
-<h5><%= @item.quantity %>, <%= @item.quantity_type %></h5>
-<h5><%= @item.brand %>, <%= @item.variety %>, <%= @item.flavor %></h5>
+<h1><%= @item.name %></h1>
+<h3><%= @item.quantity %>, <%= @item.quantity_type %></h3>
+<p><%= @item.brand %>, <%= @item.variety %>, <%= @item.flavor %></p>
 
 
+<h3>Item attributes left empty will be deleted.</h3>
   <form action='/items/<%= @item.id %>' method="post">
     <input id="hidden" type="hidden" name="_method" value="patch">
     Name:
