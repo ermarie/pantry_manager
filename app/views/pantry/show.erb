@@ -2,18 +2,26 @@
 
 <h3><a href="/items/new">Add New Item</a></h3>
 
-<% @pantry.categories.each do |category| %>
-  <h2><a href="/category/<%= category.id %>"><%= category.name %></a></h2>
-  <% category.items.each do |item| %>
-    <p><a href="/items/<%= item.id %>"><%= item.quantity %>, <%= item.quantity_type %> - <%= item.name %>
-    <% if item.brand != "" %>
-    , <%= item.brand %>
+<% if @pantry.categories.empty? %>
+  <p>No items to display. Pantry is empty. Please add a new item.</p>
+<% else %>
+  <% @pantry.categories.each do |category| %>
+    <h2><a href="/categories/<%= category.id %>"><%= category.name %></a></h2>
+    <% if category.items.empty? %>
+      <p>No items to display in <%= category.name %>. Add a new item.</p>
+    <% else %>
+      <% category.items.each do |item| %>
+        <p><a href="/items/<%= item.id %>"><%= item.quantity %>, <%= item.quantity_type %> - <b><%= item.name %></b>
+        <% if item.brand != "" %>
+        , <%= item.brand %>
+        <% end %>
+        <% if item.variety != "" %>
+        , <%= item.variety %>
+        <% end %>
+        <% if item.flavor != "" %>
+        , <%= item.flavor %>
+        <% end %></a></p>
+      <% end %>
     <% end %>
-    <% if item.variety != "" %>
-    , <%= item.variety %>
-    <% end %>
-    <% if item.flavor != "" %>
-    , <%= item.flavor %>
-    <% end %></a></p>
   <% end %>
 <% end %>

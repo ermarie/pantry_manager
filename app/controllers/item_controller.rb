@@ -23,6 +23,7 @@ class ItemController < ApplicationController
           category.items.create(name: params["name"], brand: params["brand"], variety: params["variety"], flavor: params["flavor"], quantity: params["quantity"], quantity_type: params["quantity_type"])
           redirect '/pantry'
         elsif params["category_id"] != nil
+        binding.pry
           id = params["category_id"].to_i
           category = Category.find(id)
           category.items.create(name: params["name"], brand: params["brand"], variety: params["variety"], flavor: params["flavor"], quantity: params["quantity"], quantity_type: params["quantity_type"])
@@ -72,6 +73,23 @@ class ItemController < ApplicationController
         @item = Item.find(params[:id])
         @item.update(name: params["name"], brand: params["brand"], variety: params["variety"], flavor: params["flavor"], quantity: params["quantity"], quantity_type: params["quantity_type"], category_id: category.id)
         erb :'items/show'
+      end
+    else
+      redirect '/login'
+    end
+  end
+  
+  delete '/items/:id' do
+    if logged_in?
+      item = Item.find_by(id: params[:id])
+      category = Category.find(item.category_id)
+      binding.pry
+      pantry = Pantry.find_by(user_id: current_user)
+      if pantry.items.include?(item)
+        
+        redirect '/pantry'
+      else
+        redirect '/pantry'
       end
     else
       redirect '/login'

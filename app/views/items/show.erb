@@ -9,7 +9,7 @@
     <% if @item.flavor != "" %>
     Flavor - <%= @item.flavor %>
     <% end %></p>
-<h3>Category: <%= @category.name %></h3>
+<h3>Category: <a href="/categories/<%= @category.id %>"><%= @category.name %></a></h3>
 
   <a href="/items/<%= @item.id %>/edit">Edit Item</a>
 

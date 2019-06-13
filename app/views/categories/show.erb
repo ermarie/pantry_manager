@@ -1,7 +1,6 @@
 <h2><%= @category.name %></a></h2>
   <% @category.items.each do |item| %>
     <p><a href="/items/<%= item.id %>"><%= item.quantity %>, <%= item.quantity_type %> - <%= item.name %>
-    <% binding.pry %>
     <% if item.brand != "" %>
     , <%= item.brand %>
     <% end %>
@@ -12,3 +11,5 @@
     , <%= item.flavor %>
     <% end %></a></p>
   <% end %>
+  
+<h3><a href="/items/new">Add New Item</a></h3>
