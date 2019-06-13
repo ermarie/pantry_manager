@@ -1,6 +1,15 @@
 <h1><%= @item.name %></h1>
 <h3><%= @item.quantity %>, <%= @item.quantity_type %></h3>
-<p><%= @item.brand %>, <%= @item.variety %>, <%= @item.flavor %></p>
+<p><% if @item.brand != "" %>
+    Brand - <%= @item.brand %>
+    <% end %><br>
+    <% if @item.variety != "" %>
+    Variety - <%= @item.variety %>
+    <% end %><br>
+    <% if @item.flavor != "" %>
+    Flavor - <%= @item.flavor %>
+    <% end %></p>
+<h3>Category: <%= Category.find(@item.category_id) %></h3>
 
 
 <h3>Item attributes left empty will be deleted.</h3>
