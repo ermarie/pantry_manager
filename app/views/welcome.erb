@@ -4,7 +4,15 @@
     <h2 class="center-text">Pantry Manager</h2>
     <p class="center-text">Welcome to the your Pantry Manager!</p>
     <div class="button-div">
-    <button href="/pantry" class="viewPantryButton center">View Pantry</button>
+    <% if logged_in? %>
+    <form action="/pantry">
+      <button class="viewPantryButton center">View Pantry</button>
+      </form>
+    <% else %>
+      <form action="/login">
+      <button class="viewPantryButton center">Log In</button>
+      </form>
+    <% end %>
     </div>
     <div class="content">
       

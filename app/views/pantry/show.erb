@@ -1,7 +1,8 @@
 <h2>This is your pantry, "<%= @pantry.name %>"</h2>
 
-
-<button href="/items/new" class="addItemButton">New Item</button>
+<form action="/items/new">
+<button class="addItemButton">New Item</button>
+</form>
 
 <% if @pantry.categories.empty? %>
   <p>No items to display. Pantry is empty. Please add a new item.</p>

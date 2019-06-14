@@ -16,8 +16,10 @@
   </head>
   <body>
     <div class="wrapper">
+      <% if logged_in? %>
           <h3>Welcome, <%= User.find(current_user.id).username %></h3>
-
+      <% end %>
+      
         <%= yield %>
 
       <footer class="branding">

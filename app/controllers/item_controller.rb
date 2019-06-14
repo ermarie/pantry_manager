@@ -83,10 +83,9 @@ class ItemController < ApplicationController
     if logged_in?
       item = Item.find_by(id: params[:id])
       category = Category.find(item.category_id)
-      binding.pry
       pantry = Pantry.find_by(user_id: current_user)
-      if pantry.items.include?(item)
-        
+      if pantry.category.items.include?(item)
+        binding.pry
         redirect '/pantry'
       else
         redirect '/pantry'

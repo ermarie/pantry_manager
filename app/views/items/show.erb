@@ -10,10 +10,13 @@
     Flavor - <%= @item.flavor %>
     <% end %></p>
 <h3>Category: <a href="/categories/<%= @category.id %>"><%= @category.name %></a></h3>
-
-  <button href="/items/<%= @item.id %>/edit" class="editItemButton">Edit Item</button>
-
+<br>
+  <form action="/items/<%= @item.id %>/edit">
+  <button class="editItemButton">Edit Item</button>
+  </form>
+<br>
+<br>
   <form method="post" action="/items/<%= @item.id %>">
   <input id="hidden" type="hidden" name="_method" value="delete">
-  <input type="submit" value="Delete Item">
+  <button class="deleteItemButton">Delete Item</button>
 </form>
