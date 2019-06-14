@@ -16,17 +16,24 @@ class ItemController < ApplicationController
       if params["name"] == ""
         redirect '/items/new'
       else
-        if params["category_name"] != "" && params["category_id"] != "" 
+        if params["category_name"] != "" && params["category_id"] != nil 
           redirect '/items/new'
         elsif params["category_name"] != "" 
           category = pantry.categories.create(name: params["category_name"])
           category.items.create(name: params["name"], brand: params["brand"], variety: params["variety"], flavor: params["flavor"], quantity: params["quantity"], quantity_type: params["quantity_type"])
           redirect '/pantry'
-        elsif params["category_id"] != ""
-          id = params["category_id"].to_i
-          category = Category.find(id)
-          category.items.create(name: params["name"], brand: params["brand"], variety: params["variety"], flavor: params["flavor"], quantity: params["quantity"], quantity_type: params["quantity_type"])
+        elsif params["category_id"] != nil
+          category = Category.find(params["category_id"])
+          pantry = Pantry.find_by(user_id: current_user.id)
+          if !pantry.categories.include?(category)
+            pantry.categories << category
+            pantry.save
+          end
+          item = category.items.create(name: params["name"], brand: params["brand"], variety: params["variety"], flavor: params["flavor"], quantity: params["quantity"], quantity_type: params["quantity_type"])
+          item.save
           redirect '/pantry'
+        else
+          redirect '/items/new'
         end
       end
     else
