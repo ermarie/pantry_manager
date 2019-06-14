@@ -64,22 +64,26 @@ class ItemController < ApplicationController
   
   patch '/items/:id' do
     if logged_in?
-      if params["name"] == "" && params["brand"] == "" && params["variety"] == "" && params["flavor"] == "" && params["quantity"] == "" && params["quantity_type"] == "" && params["category_name"] == nil && params["category_id"] == nil
-        redirect "/items/#{params[:id]}/edit"
-      elsif params["category_name"] != "" && params["category_id"] != ""
-        redirect "/items/#{params[:id]}/edit"
-      elsif params["category_id"] != ""
-        id = params["category_id"].to_i
-        @item = Item.find(params[:id])
-        @item.update(name: params["name"], brand: params["brand"], variety: params["variety"], flavor: params["flavor"], quantity: params["quantity"], quantity_type: params["quantity_type"], category_id: id)
-        @category = @item.category
-        erb :'items/show'
-      elsif params["category_name"] != ""
-        pantry = Pantry.find_by(user_id: current_user.id)
-        @category = pantry.categories.create(name: params["category_name"])
-        @item = Item.find(params[:id])
-        @item.update(name: params["name"], brand: params["brand"], variety: params["variety"], flavor: params["flavor"], quantity: params["quantity"], quantity_type: params["quantity_type"], category_id: @category.id)
-        erb :'items/show'
+      pantry = Pantry.find_by(user_id: current_user.id)
+      @item = Item.find(params[:id])
+      if pantry.items.include?(@item)
+        if params["name"] == "" && params["brand"] == "" && params["variety"] == "" && params["flavor"] == "" && params["quantity"] == "" && params["quantity_type"] == "" && params["category_name"] == nil && params["category_id"] == nil
+          redirect "/items/#{params[:id]}/edit"
+        elsif params["category_name"] != "" && params["category_id"] != ""
+          redirect "/items/#{params[:id]}/edit"
+        elsif params["category_id"] != ""
+          id = params["category_id"].to_i
+          @item.update(name: params["name"], brand: params["brand"], variety: params["variety"], flavor: params["flavor"], quantity: params["quantity"], quantity_type: params["quantity_type"], category_id: id)
+          @category = @item.category
+          erb :'items/show'
+        elsif params["category_name"] != ""
+          @category = pantry.categories.create(name: params["category_name"])
+          @Category.save
+          @item.update(name: params["name"], brand: params["brand"], variety: params["variety"], flavor: params["flavor"], quantity: params["quantity"], quantity_type: params["quantity_type"], category_id: @category.id)
+          erb :'items/show'
+        end
+      else
+        redirect '/pantry'
       end
     else
       redirect '/login'
