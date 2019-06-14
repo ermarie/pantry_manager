@@ -10,7 +10,6 @@ class ItemController < ApplicationController
   end 
   
   post '/items' do
-    binding.pry
     if logged_in?
       user = User.find_by(id: current_user.id)
       pantry = Pantry.find_by(user_id: user.id)
@@ -24,11 +23,9 @@ class ItemController < ApplicationController
           category.items.create(name: params["name"], brand: params["brand"], variety: params["variety"], flavor: params["flavor"], quantity: params["quantity"], quantity_type: params["quantity_type"])
           redirect '/pantry'
         elsif params["category_id"] != ""
-        binding.pry
           id = params["category_id"].to_i
           category = Category.find(id)
           category.items.create(name: params["name"], brand: params["brand"], variety: params["variety"], flavor: params["flavor"], quantity: params["quantity"], quantity_type: params["quantity_type"])
-          binding.pry
           redirect '/pantry'
         end
       end
@@ -41,7 +38,6 @@ class ItemController < ApplicationController
     if logged_in?
       @item = Item.find_by(id: params[:id])
       @category = Category.find_by(id: @item.category_id)
-      binding.pry
       erb :'items/show'
     else
       redirect '/login'
@@ -69,12 +65,13 @@ class ItemController < ApplicationController
         id = params["category_id"].to_i
         @item = Item.find(params[:id])
         @item.update(name: params["name"], brand: params["brand"], variety: params["variety"], flavor: params["flavor"], quantity: params["quantity"], quantity_type: params["quantity_type"], category_id: id)
+        @category = @item.category
         erb :'items/show'
       elsif params["category_name"] != ""
         pantry = Pantry.find_by(user_id: current_user.id)
-        category = pantry.categories.create(name: params["category_name"])
+        @category = pantry.categories.create(name: params["category_name"])
         @item = Item.find(params[:id])
-        @item.update(name: params["name"], brand: params["brand"], variety: params["variety"], flavor: params["flavor"], quantity: params["quantity"], quantity_type: params["quantity_type"], category_id: category.id)
+        @item.update(name: params["name"], brand: params["brand"], variety: params["variety"], flavor: params["flavor"], quantity: params["quantity"], quantity_type: params["quantity_type"], category_id: @category.id)
         erb :'items/show'
       end
     else
@@ -87,7 +84,7 @@ class ItemController < ApplicationController
       item = Item.find_by(id: params[:id])
       category = Category.find(item.category_id)
       pantry = Pantry.find_by(user_id: current_user)
-      if pantry.category.items.include?(item)
+      if pantry.items.include?(item)
         item.destroy
         redirect '/pantry'
       else

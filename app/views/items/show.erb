@@ -1,4 +1,10 @@
 <h1><%= @item.name %></h1>
+<form action="/items/<%= @item.id %>/edit">
+  <button class="editItemButton">Edit Item</button>
+  </form>
+  
+  <br>
+  
 <h3><%= @item.quantity %>, <%= @item.quantity_type %></h3>
 <p><% if @item.brand != "" %>
     Brand - <%= @item.brand %>
@@ -10,12 +16,9 @@
     Flavor - <%= @item.flavor %>
     <% end %></p>
 <h3>Category: <a href="/categories/<%= @category.id %>"><%= @category.name %></a></h3>
+
 <br>
-  <form action="/items/<%= @item.id %>/edit">
-  <button class="editItemButton">Edit Item</button>
-  </form>
-<br>
-<br>
+  
   <form method="post" action="/items/<%= @item.id %>">
   <input id="hidden" type="hidden" name="_method" value="delete">
   <button class="deleteItemButton">Delete Item</button>
