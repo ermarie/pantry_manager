@@ -24,6 +24,7 @@ class ApplicationController < Sinatra::Base
     
     def current_pantry
       current_user.pantry
+    end
   end
 
 end
