@@ -2,7 +2,7 @@ class ItemController < ApplicationController
   
   get '/items/new' do
     if logged_in?
-      @categories = Category.all
+      @categories = current_user.pantry.categories
       erb :'items/new'
     else
       redirect '/login'
@@ -11,8 +11,7 @@ class ItemController < ApplicationController
   
   post '/items' do
     if logged_in?
-      user = User.find_by(id: current_user.id)
-      pantry = Pantry.find_by(user_id: user.id)
+      pantry = current_user.pantry
       if params["name"] == ""
         redirect '/items/new'
       else
@@ -23,8 +22,7 @@ class ItemController < ApplicationController
           category.items.create(name: params["name"], brand: params["brand"], variety: params["variety"], flavor: params["flavor"], quantity: params["quantity"], quantity_type: params["quantity_type"])
           redirect '/pantry'
         elsif params["category_id"] != nil
-          category = Category.find(params["category_id"])
-          pantry = Pantry.find_by(user_id: current_user.id)
+          category = pantry.categories.find(params["category_id"])
           if !pantry.categories.include?(category)
             pantry.categories << category
             pantry.save
@@ -55,7 +53,7 @@ class ItemController < ApplicationController
     if logged_in?
       @item = Item.find_by(id: params[:id])
       @category = Category.find_by(id: @item.category_id)
-      @categories = Category.all
+      @categories = current_user.pantry.categories
       erb :'items/edit'
     else
       redirect '/login'
@@ -78,7 +76,7 @@ class ItemController < ApplicationController
           erb :'items/show'
         elsif params["category_name"] != ""
           @category = pantry.categories.create(name: params["category_name"])
-          @Category.save
+          @category.save
           @item.update(name: params["name"], brand: params["brand"], variety: params["variety"], flavor: params["flavor"], quantity: params["quantity"], quantity_type: params["quantity_type"], category_id: @category.id)
           erb :'items/show'
         end
