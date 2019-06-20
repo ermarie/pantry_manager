@@ -2,7 +2,7 @@ class ItemController < ApplicationController
   
   get '/items/new' do
     if logged_in?
-      @categories = current_user.pantry.categories
+      @categories = current_pantry.categories
       erb :'items/new'
     else
       redirect '/login'
@@ -11,7 +11,7 @@ class ItemController < ApplicationController
   
   post '/items' do
     if logged_in?
-      pantry = current_user.pantry
+      pantry = current_pantry
       if params["name"] == ""
         redirect '/items/new'
       else
@@ -49,7 +49,7 @@ class ItemController < ApplicationController
     if logged_in?
       @item = Item.find_by(id: params[:id])
       @category = Category.find_by(id: @item.category_id)
-      @categories = current_user.pantry.categories
+      @categories = current_pantry.categories
       erb :'items/edit'
     else
       redirect '/login'
@@ -58,7 +58,7 @@ class ItemController < ApplicationController
   
   patch '/items/:id' do
     if logged_in?
-      pantry = current_user.pantry
+      pantry = current_pantry
       @item = Item.find(params[:id])
       if pantry.items.include?(@item)
         if params["name"] == "" && params["brand"] == "" && params["variety"] == "" && params["flavor"] == "" && params["quantity"] == "" && params["quantity_type"] == "" && params["category_name"] == nil && params["category_id"] == nil
@@ -87,7 +87,7 @@ class ItemController < ApplicationController
   delete '/items/:id' do
     if logged_in?
       item = Item.find_by(id: params[:id])
-      pantry = current_user.pantry
+      pantry = current_pantry
       if pantry.items.include?(item)
         item.destroy
         redirect '/pantry'

@@ -2,8 +2,8 @@ class PantryController < ApplicationController
   
   get '/pantry' do
     if logged_in?
-      @user = User.find_by(id: current_user.id)
-      @pantry = Pantry.find_by(user_id: @user.id)
+      @user = current_user
+      @pantry = current_pantry
       if @pantry != nil
         erb :'pantry/show'
       else
@@ -16,8 +16,8 @@ class PantryController < ApplicationController
   
   get '/pantry/new' do
     if logged_in? 
-      @user = User.find_by(id: current_user.id)
-      @pantry = Pantry.find_by(user_id: @user.id)
+      @user = current_user
+      @pantry = current_pantry
       if @pantry == nil
         erb :'pantry/new'
       else
@@ -31,10 +31,12 @@ class PantryController < ApplicationController
   post '/pantry' do
     if params["name"] == ""
       redirect '/pantry/new'
-    else
-      user = User.find_by(id: current_user.id)
-      pantry = Pantry.create(name: params["name"], user_id: user.id)
+    elsif logged_in?
+      user = current_user
+      pantry = Pantry.create(name: params["name"], user_id: current_user.id)
       redirect '/pantry'
+    else
+      redirect '/pantry/new'
     end
   end
   
