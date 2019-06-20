@@ -23,10 +23,6 @@ class ItemController < ApplicationController
           redirect '/pantry'
         elsif params["category_id"] != nil
           category = pantry.categories.find(params["category_id"])
-          if !pantry.categories.include?(category)
-            pantry.categories << category
-            pantry.save
-          end
           item = category.items.create(name: params["name"], brand: params["brand"], variety: params["variety"], flavor: params["flavor"], quantity: params["quantity"], quantity_type: params["quantity_type"])
           item.save
           redirect '/pantry'
@@ -62,7 +58,7 @@ class ItemController < ApplicationController
   
   patch '/items/:id' do
     if logged_in?
-      pantry = Pantry.find_by(user_id: current_user.id)
+      pantry = current_user.pantry
       @item = Item.find(params[:id])
       if pantry.items.include?(@item)
         if params["name"] == "" && params["brand"] == "" && params["variety"] == "" && params["flavor"] == "" && params["quantity"] == "" && params["quantity_type"] == "" && params["category_name"] == nil && params["category_id"] == nil
@@ -91,8 +87,7 @@ class ItemController < ApplicationController
   delete '/items/:id' do
     if logged_in?
       item = Item.find_by(id: params[:id])
-      category = Category.find(item.category_id)
-      pantry = Pantry.find_by(user_id: current_user)
+      pantry = current_user.pantry
       if pantry.items.include?(item)
         item.destroy
         redirect '/pantry'
