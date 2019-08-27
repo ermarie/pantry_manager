@@ -1,1 +1,1 @@
-web: bundle exec rails server thin -p $PORT -e $RACK_ENV
+web: shotgun config.ru -s thin -o 0.0.0.0 -p $PORT -E $RACK_ENV
